@@ -5,7 +5,7 @@
   "main": "imageLoad.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/brobro10000/braille-reader-opencv/issues"
   },
-  "homepage": "https://github.com/brobro10000/braille-reader-opencv#readme"
+  "homepage": "https://github.com/brobro10000/braille-reader-opencv#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
