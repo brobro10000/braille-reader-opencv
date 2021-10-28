@@ -1,0 +1,19 @@
+{
+  "name": "braille-reader-opencv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "imageLoad.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brobro10000/braille-reader-opencv.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brobro10000/braille-reader-opencv/issues"
+  },
+  "homepage": "https://github.com/brobro10000/braille-reader-opencv#readme"
+}
