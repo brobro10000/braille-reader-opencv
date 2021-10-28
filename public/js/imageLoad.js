@@ -39,3 +39,5 @@ navigator.mediaDevices
   .catch(function(err) {
     console.log("An error occurred! " + err);
   });
+
+  
