@@ -19,7 +19,16 @@
   <div>
     <video id="videoInput"></video> <canvas id="canvasOutput"></canvas>
   </div>
-
+  <div class="slidecontainer">
+    <label>Minimum Threshold</label>
+    <input step = .1 type="range" min="0" max="254" value="0" class="slider" id="min">
+    <p id='minVal'></p>
+  </div>
+  <div class="slidecontainer">
+    <label>Maximum Threshold</label>
+    <input step = .1 type="range" min="1" max="255" value="255" class="slider" id="max">
+    <p id='maxVal'></p>
+  </div>
   <script async src="./js/opencv.js" type="text/javascript"></script>
   <script src="./js/imageLoad.js"></script>
 </body>
