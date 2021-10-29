@@ -1,0 +1,8 @@
+#navbar {
+    border-style: double;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-width: thick;
+    margin-bottom: 25px;
+}

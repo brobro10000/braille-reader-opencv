@@ -1,9 +1,18 @@
 let video = document.getElementById("videoInput"); // video is the id of video tag
+
+var thresholdSelected = 0;
 video.width = 640;
 video.height = 480;
+function changeThreshold(e){
+  if(e.target.id){
+    thresholdSelected = e.target.id.split('radio')[1]
+  }
+  return thresholdSelected
+}
 navigator.mediaDevices
-  .getUserMedia({ video: true, audio: false })
-  .then(function(stream) {
+.getUserMedia({ video: true, audio: false })
+.then(function(stream) {
+  var thresholdMethod = [cv.THRESH_OTSU,cv.THRESH_TRIANGLE,cv.THRESH_BINARY,cv.THRESH_BINARY_INV]
     video.srcObject = stream;
     video.play();
     
@@ -23,6 +32,7 @@ navigator.mediaDevices
     function processVideo() {
       minOutput.innerHTML = minVal
       maxOutput.innerHTML = maxVal
+
       min.oninput = function(){
         minVal =parseFloat(this.value)
         max.min = minVal
@@ -45,8 +55,8 @@ navigator.mediaDevices
           cap.read(src);
           let ksize = new cv.Size(5, 5);
           cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
-          cv.GaussianBlur(dst, dst, ksize, 25, 25);
-          cv.threshold(dst,dst,minVal,maxVal,cv.THRESH_OTSU)
+          cv.GaussianBlur(dst, dst, ksize, 0, 0);
+          cv.threshold(dst,dst,minVal,maxVal,thresholdMethod[thresholdSelected])
           // schedule the next one.
           cv.imshow("canvasOutput", dst);
         let delay = 1000 / FPS - (Date.now() - begin);
