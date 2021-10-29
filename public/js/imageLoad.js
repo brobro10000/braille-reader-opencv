@@ -19,7 +19,7 @@ navigator.mediaDevices
     var minOutput = document.getElementById('minVal')
     var maxOutput = document.getElementById('maxVal')
 
-    const FPS = 60;
+    const FPS = 120;
     function processVideo() {
       minOutput.innerHTML = minVal
       maxOutput.innerHTML = maxVal
@@ -43,8 +43,10 @@ navigator.mediaDevices
           let begin = Date.now();
           // start processing.
           cap.read(src);
+          let ksize = new cv.Size(5, 5);
           cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
-          cv.threshold(dst,dst,minVal,maxVal,cv.THRESH_BINARY)
+          cv.GaussianBlur(dst, dst, ksize, 25, 25);
+          cv.threshold(dst,dst,minVal,maxVal,cv.THRESH_OTSU)
           // schedule the next one.
           cv.imshow("canvasOutput", dst);
         let delay = 1000 / FPS - (Date.now() - begin);
