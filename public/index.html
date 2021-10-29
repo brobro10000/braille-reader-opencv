@@ -39,37 +39,70 @@
   </section>
   <section class='container text-center'>
     <div class='row'>
+      <div class='card col'>
+        <div class='card-body'>
+          <h4 class='card-title'>Enable Filter</h4>
+          <div onClick='addFilter(event)' class="btn-group-vertical btn-group" role="group" aria-label="Basic checkbox button group">
+            <!-- <input type="checkbox" class="btn-check" id="btncheck0" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck0">Grayscale</label>
+          
+            <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck1">Gaussian Blur</label>
+           -->
+            <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck2">Threshold</label>
+
+            <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck3">Canny Edge</label>
+          </div>
+        </div>
+      </div>
       <div class="card col">
         <div class='card-body'>
           <h4 class='card-title'>Threshold Method</h4>
           <div onClick='changeThreshold(event)' class="btn-group-vertical btn-group" role="group"
-          aria-label="Basic radio toggle button group">
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio0" autocomplete="off" checked>
-          <label class="btn btn-outline-primary" for="btnradio0">OTSU</label>
-          
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-          <label class="btn btn-outline-primary" for="btnradio1">Triangle</label>
-          
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-          <label class="btn btn-outline-primary" for="btnradio2">Binary</label>
-          
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-          <label class="btn btn-outline-primary" for="btnradio3">Binary Inverted</label>
+            aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio0" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="btnradio0">OTSU</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio1">Triangle</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio2">Binary</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btnradio3">Binary Inverted</label>
+          </div>
         </div>
-      </div>
       </div>
       <div class='card col'>
         <div class='card-body'>
           <h4 class='card-title'>Threshold for Binary and Binary Inv</h4>
           <div class="card container">
             <label class='card-title'>Minimum Threshold</label>
-            <input step=.1 type="range" min="0" max="254" value="0" class="slider" id="min">
+            <input step=.1 type="range" min="0" max="254" value="0" class="slider" id="min" disabled>
             <h5 id='minVal'></h5>
           </div>
           <div class="card container">
             <label class='card-title'>Maximum Threshold</label>
-            <input step=.1 type="range" min="1" max="255" value="255" class="slider" id="max">
+            <input step=.1 type="range" min="1" max="255" value="255" class="slider" id="max" disabled>
             <h5 id='maxVal'></h5>
+          </div>
+        </div>
+      </div>
+      <div class='card col'>
+        <div class='card-body'>
+          <h4 class='card-title'>Canny Edge Hysteresis</h4>
+          <div class="card container">
+            <label class='card-title'>Minimum Hysteresis</label>
+            <input step=.1 type="range" min="0" max="999" value="0" class="slider" id="minH" >
+            <h5 id='minValH'></h5>
+          </div>
+          <div class="card container">
+            <label class='card-title'>Maximum Hysteresis</label>
+            <input step=.1 type="range" min="1" max="1000" value="1000" class="slider" id="maxH" >
+            <h5 id='maxValH'></h5>
           </div>
         </div>
       </div>
