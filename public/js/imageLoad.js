@@ -27,13 +27,11 @@ navigator.mediaDevices
         minVal =parseFloat(this.value)
         max.min = minVal
         minOutput.innerHTML = minVal
-        console.log(minOutput)
       }
       max.oninput = function(){
         maxVal = parseFloat(this.value)
         min.max = maxVal
         maxOutput.innerHTML = maxVal
-        console.log(maxOutput)
       }
       try {
         // if (!streaming) {
@@ -47,9 +45,6 @@ navigator.mediaDevices
           cap.read(src);
           cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
           cv.threshold(dst,dst,minVal,maxVal,cv.THRESH_BINARY)
-          // cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
-          // cv.threshold(dst,dst,minVal,maxVal,cv.THRESH_BINARY)
-          // cv.imshow("canvasOutput", dst);
           // schedule the next one.
           cv.imshow("canvasOutput", dst);
         let delay = 1000 / FPS - (Date.now() - begin);
