@@ -137,6 +137,7 @@ async function onOpenCvReady(){
           setTimeout(processVideo, delay);
         } catch (err) {
           console.error(err);
+          location.reload()
         }
       }
 
