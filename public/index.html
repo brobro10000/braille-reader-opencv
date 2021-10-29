@@ -8,9 +8,9 @@
   <meta name="theme-color" content="#317EFB">
   <meta name="description" content="A Braille Reader">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/public/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/public/css/style.css" rel="stylesheet">
-  <script src="/public/js/bootstrap.bundle.min.js"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <script src="js/bootstrap.bundle.min.js"></script>
   <link rel="shortcut icon" href="icons/icon-192x192.png" type="image/x-icon">
   <link rel="apple-touch-icon" href="icons/icon-192x192.png">
   <link rel="manifest" href="manifest.json">
@@ -41,33 +41,36 @@
     <div class='row'>
       <div class="card col">
         <div class='card-body'>
-          <h5 class='card-title'>Threshold Method</h5>
-        </div>
-        <div onClick='changeThreshold(event)' class="btn-group-vertical btn-group" role="group" aria-label="Basic radio toggle button group">
+          <h4 class='card-title'>Threshold Method</h4>
+          <div onClick='changeThreshold(event)' class="btn-group-vertical btn-group" role="group"
+          aria-label="Basic radio toggle button group">
           <input type="radio" class="btn-check" name="btnradio" id="btnradio0" autocomplete="off" checked>
           <label class="btn btn-outline-primary" for="btnradio0">OTSU</label>
-  
+          
           <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
           <label class="btn btn-outline-primary" for="btnradio1">Triangle</label>
-  
+          
           <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
           <label class="btn btn-outline-primary" for="btnradio2">Binary</label>
-  
+          
           <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
           <label class="btn btn-outline-primary" for="btnradio3">Binary Inverted</label>
         </div>
       </div>
-      <div class='col'>
-        <h3>Threshold for Binary and Binary Inv</h3>
-        <div class="slidecontainer">
-          <label>Minimum Threshold</label>
-          <input step=.1 type="range" min="0" max="254" value="0" class="slider" id="min">
-          <span id='minVal'></span>
-        </div>
-        <div class="slidecontainer">
-          <label>Maximum Threshold</label>
-          <input step=.1 type="range" min="1" max="255" value="255" class="slider" id="max">
-          <span id='maxVal'></span>
+      </div>
+      <div class='card col'>
+        <div class='card-body'>
+          <h4 class='card-title'>Threshold for Binary and Binary Inv</h4>
+          <div class="card container">
+            <label class='card-title'>Minimum Threshold</label>
+            <input step=.1 type="range" min="0" max="254" value="0" class="slider" id="min">
+            <h5 id='minVal'></h5>
+          </div>
+          <div class="card container">
+            <label class='card-title'>Maximum Threshold</label>
+            <input step=.1 type="range" min="1" max="255" value="255" class="slider" id="max">
+            <h5 id='maxVal'></h5>
+          </div>
         </div>
       </div>
     </div>
