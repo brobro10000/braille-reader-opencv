@@ -59,6 +59,7 @@ navigator.mediaDevices
 
     let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
     let dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
+    let templ = cv.imread('imageSrc')
 
     let cap = new cv.VideoCapture(video);
     var min = document.getElementById('min')
@@ -75,6 +76,10 @@ navigator.mediaDevices
 
     var toggleThreshold = document.getElementById('btncheck2')
     var toggleCannyEdge = document.getElementById('btncheck3')
+
+    inputElement.addEventListener('change', (e) => {
+      imgElement.src = URL.createObjectURL(e.target.files[0]);
+    }, false);
 
     const FPS = 120;
     function processVideo() {
@@ -105,6 +110,7 @@ navigator.mediaDevices
         minH.max = maxValH
         maxHOutput.innerHTML = maxValH
       }
+      
       try {
         // if (!streaming) {
         //   // clean and stop.
@@ -119,7 +125,6 @@ navigator.mediaDevices
         let ksize = new cv.Size(5, 5);
         cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
         cv.GaussianBlur(dst, dst, ksize, 0, 0);
-
         if (index.threshold) {
           cv.threshold(dst, dst, minVal, maxVal, thresholdMethod[thresholdSelected])
           toggleCannyEdge.setAttribute('disabled', '')
@@ -135,14 +140,6 @@ navigator.mediaDevices
           toggleThreshold.removeAttribute('disabled')
         }
  
-        let templ = cv.imread('imageSrc')
-        inputElement.addEventListener('change', (e) => {
-          imgElement.src = URL.createObjectURL(e.target.files[0]);
-          // return cv.matchTemplate(src, templ, dst, cv.TM_CCOEFF);
-        }, false);
-        // cv.rectangle(dst, src, dst, 50), (0, 0, 0), -1)
-        // cv.putText(overlay, fps, (1230, 20), cv.FONT_HERSHEY_DUPLEX, 0.5, (255, 255, 255), 1)
-        // cv.addWeighted(overlay, 1.0, output, 0, 0, output)
         // schedule the next one.
         cv.imshow("canvasOutput", dst);
         let delay = 1000 / FPS - (Date.now() - begin);
