@@ -60,7 +60,7 @@ navigator.mediaDevices
     let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
     let dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
     let templ = cv.imread('imageSrc')
-
+    let fgbg = new cv.BackgroundSubtractorMOG2(500, 25, false);
     let cap = new cv.VideoCapture(video);
     var min = document.getElementById('min')
     var max = document.getElementById('max')
@@ -122,9 +122,9 @@ navigator.mediaDevices
         // start processing.
         cap.read(src);
        
-        let ksize = new cv.Size(5, 5);
+        let ksize = new cv.Size(3, 3);
         cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
-        cv.GaussianBlur(dst, dst, ksize, 0, 0);
+        cv.GaussianBlur(dst, dst, ksize, 25, 25);
         if (index.threshold) {
           cv.threshold(dst, dst, minVal, maxVal, thresholdMethod[thresholdSelected])
           toggleCannyEdge.setAttribute('disabled', '')
@@ -135,11 +135,12 @@ navigator.mediaDevices
         if (index.cannyedge) {
           cv.Canny(dst, dst, minValH, maxValH, 3, true);
           toggleThreshold.setAttribute('disabled', '')
+
           delete index.threshold
         } else {
           toggleThreshold.removeAttribute('disabled')
         }
- 
+        fgbg.apply(dst,dst)
         // schedule the next one.
         cv.imshow("canvasOutput", dst);
         let delay = 1000 / FPS - (Date.now() - begin);
