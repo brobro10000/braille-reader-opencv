@@ -7,8 +7,9 @@ async function onOpenCvReady() {
   </a>
   OpenCV.js Loaded
 `
+
 }
-let video = document.getElementById("videoInput"); // video is the id of video tag
+let video = document.getElementById("videoInput"); 
 var clickCount = 0;
 var thresholdSelected = 0;
 var filterSelected = 0;
@@ -16,7 +17,7 @@ var flag = 0;
 video.width = 640;
 video.height = 480;
 var index = {}
-var filters = ['grayscale', 'gaussianblur', 'threshold', 'cannyedge']
+// var filters = ['grayscale', 'gaussianblur', 'threshold', 'cannyedge']
 function changeThreshold(e) {
   if (e.target.id) {
     thresholdSelected = e.target.id.split('radio')[1]
@@ -58,9 +59,8 @@ navigator.mediaDevices
     var maxValH = 1000
 
     let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
-    let dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
-    let templ = cv.imread('imageSrc')
-    let fgbg = new cv.BackgroundSubtractorMOG2(500, 25, false);
+    let dst = new cv.Mat(video.height, video.width, cv.CV_8UC4);
+    // let fgbg = new cv.BackgroundSubtractorMOG2(500, 25, false);
     let cap = new cv.VideoCapture(video);
     var min = document.getElementById('min')
     var max = document.getElementById('max')
@@ -81,8 +81,12 @@ navigator.mediaDevices
       imgElement.src = URL.createObjectURL(e.target.files[0]);
     }, false);
 
-    const FPS = 120;
+    let templ = cv.imread('imageSrc')
+    // let mask = new cv.Mat();
+    // cv.matchTemplate(src, templ, dst, cv.TM_CCOEFF, mask);
+    const FPS = 15;
     function processVideo() {
+      // let templ = cv.imread('imageSrc')
       minOutput.innerHTML = minVal
       maxOutput.innerHTML = maxVal
 
@@ -110,21 +114,39 @@ navigator.mediaDevices
         minH.max = maxValH
         maxHOutput.innerHTML = maxValH
       }
-      
+
+
+      let video = document.getElementById('videoInput');
+      let cap = new cv.VideoCapture(video);
+
+      // let src = cv.imread('imageCanvasInput');
+      let templ = cv.imread('imageSrc');
+      // let dst = new cv.Mat();
+      // cv.matchTemplate(src, templ, dst, cv.TM_CCOEFF, mask);
+      // let result = cv.minMaxLoc(dst, mask);
+      // let maxPoint = result.maxLoc;
+      // let color = new cv.Scalar(255, 0, 0, 255);
+      // let point = new cv.Point(maxPoint.x + templ.cols, maxPoint.y + templ.rows);
+      // cv.rectangle(src, maxPoint, point, color, 2, cv.LINE_8, 0);
+      // cv.imshow('canvasOutput', src);
+      // src.delete(); dst.delete(); mask.delete();
+
+
       try {
-        // if (!streaming) {
-        //   // clean and stop.
-        //   src.delete();
-        //   dst.delete();
-        //   return;
-        // }
+        if (!stream) {
+          // clean and stop.
+          src.delete();
+          dst.delete();
+          return;
+        }
         let begin = Date.now();
         // start processing.
         cap.read(src);
-       
-        let ksize = new cv.Size(3, 3);
-        cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
-        cv.GaussianBlur(dst, dst, ksize, 25, 25);
+
+        cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY,0);
+        // let ksize = new cv.Size(3, 3);
+        // cv.GaussianBlur(dst, dst, ksize, 0, 0);
+
         if (index.threshold) {
           cv.threshold(dst, dst, minVal, maxVal, thresholdMethod[thresholdSelected])
           toggleCannyEdge.setAttribute('disabled', '')
@@ -140,12 +162,15 @@ navigator.mediaDevices
         } else {
           toggleThreshold.removeAttribute('disabled')
         }
-        fgbg.apply(dst,dst)
+        // fsbg.apply(dst,dst)
         // schedule the next one.
+
         cv.imshow("canvasOutput", dst);
+
         let delay = 1000 / FPS - (Date.now() - begin);
         setTimeout(processVideo, delay);
-      } catch (err) {
+      } 
+      catch (err) {
         console.error(err);
       }
     }
